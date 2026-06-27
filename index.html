@@ -10,10 +10,11 @@
 
   <!-- HERO -->
   <header class="hero">
+    <button id="langToggle" class="lang-toggle">EN</button>
     <div class="hero-content">
       <span class="hero-badge">Guanajuato &#127470;&#127485; 2026</span>
       <h1>Trip Vibes <span class="accent">Guanajuato</span></h1>
-      <p>Mexico's most colorful colonial city — history, markets, alleyways &amp; nightlife</p>
+      <p>La ciudad colonial más colorida de México — historia, mercados, callejuelas y vida nocturna</p>
     </div>
     <div class="hero-wave">
       <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
@@ -27,12 +28,12 @@
     <div class="container">
       <div class="search-box">
         <input type="text" id="nlSearch" class="search-input"
-          placeholder='Try "mezcal tasting with friends" or "easy hike with a great view"…' />
-        <button class="search-btn" id="searchBtn">Find for me</button>
+          placeholder='Prueba "cata de mezcal con amigos" o "caminata fácil con vistas"…' />
+        <button class="search-btn" id="searchBtn">Encuéntrame algo</button>
       </div>
       <div id="searchStatus" class="search-status">
         <span id="searchStatusText"></span>
-        <button class="search-clear" id="searchClear">Clear &times;</button>
+        <button class="search-clear" id="searchClear">Limpiar &times;</button>
       </div>
     </div>
   </section>
@@ -46,6 +47,7 @@
         <button class="filter-btn" data-filter="food">&#127790; Comida &amp; Mercados</button>
         <button class="filter-btn" data-filter="outdoor">&#127748; Naturaleza</button>
         <button class="filter-btn" data-filter="nightlife">&#127917; Vida Nocturna</button>
+        <button class="filter-btn filter-btn--first" data-filter="firstTimer">&#127775; Primer Viaje</button>
       </div>
       <div class="sort-row">
         <label class="sort-label" for="sortSelect">Ordenar por</label>
@@ -93,10 +95,10 @@
     <div class="container">
       <h2>Insights</h2>
       <div class="stat-strip">
-        <span><strong id="statDestinations">—</strong> destinos</span>
-        <span>&#9733; <strong id="statAvgRating">—</strong> calificación promedio</span>
-        <span>Top actividad: <strong id="statTopActivity">—</strong></span>
-        <span><strong id="statTagDensity">—</strong> tags promedio / destino</span>
+        <span><strong id="statDestinations">—</strong> <span id="statDestsLabel">destinos</span></span>
+        <span>&#9733; <strong id="statAvgRating">—</strong> <span id="statAvgLabel">calificación promedio</span></span>
+        <span><span id="statTopLabel">Top actividad:</span> <strong id="statTopActivity">—</strong></span>
+        <span><strong id="statTagDensity">—</strong> <span id="statTagsLabel">tags promedio / destino</span></span>
       </div>
       <div class="freq-chart">
         <h3 class="freq-chart-title">Distribución de Actividades</h3>
@@ -109,13 +111,13 @@
   <section class="tips-section">
     <div class="container">
       <h2>Tips Rápidos</h2>
-      <ul class="tips-list">
+      <ul class="tips-list" id="tipsList">
         <li>&#128337; <strong>Mejor época:</strong> Oct–Nov (Cervantino y Día de Muertos) o Semana Santa. Evita el verano si odias el calor.</li>
         <li>&#128652; <strong>Cómo llegar:</strong> Vuela a León (BJX) y toma un camión o taxi al Centro de Guanajuato — 30–40 min.</li>
-        <li>&#128694; <strong>Camina todo:</strong> El centro es peatonal. Las callejuelas no tienen nombre fijo — descubrir perderte es parte de la experiencia.</li>
-        <li>&#9935;&#65039; <strong>Minas:</strong> La visita a Valenciana incluye un guía; lleva zapatos cómodos y ropa abrigadora (adentro hace frío).</li>
-        <li>&#127790; <strong>Come local:</strong> Desayuna enchiladas mineras en el Mercado Hidalgo — el mejor precio y el mejor sabor de la ciudad.</li>
-        <li>&#127917; <strong>Callejoneada:</strong> Salen del Jardín Unión la mayoría de las noches; negocia el precio directo con la estudiantina antes de unirte.</li>
+        <li>&#128694; <strong>Camina todo:</strong> El centro es peatonal. Perderte en las callejuelas es parte de la experiencia.</li>
+        <li>&#9935;&#65039; <strong>Minas:</strong> La visita a Valenciana incluye guía; lleva ropa abrigadora — adentro hace frío.</li>
+        <li>&#127790; <strong>Come local:</strong> Desayuna enchiladas mineras en el Mercado Hidalgo — el mejor precio de la ciudad.</li>
+        <li>&#127917; <strong>Callejoneada:</strong> Salen del Jardín Unión la mayoría de las noches; negocia el precio directo con la estudiantina.</li>
       </ul>
     </div>
   </section>
@@ -123,35 +125,41 @@
   <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
-      <p>Trip Vibes Guanajuato &mdash; Guía de Viaje 2026</p>
+      <p id="footerMain">Trip Vibes Guanajuato &mdash; Guía de Viaje 2026</p>
       <p class="footer-sub">Siempre verifica horarios y precios directamente con cada sitio antes de visitar.</p>
     </div>
   </footer>
+
+  <!-- PRINT PANEL (hidden, shown only via @media print) -->
+  <div id="printPanel" class="print-panel"></div>
+
+  <!-- SAVE BAR (fixed bottom) -->
+  <div id="saveBar" class="save-bar hidden">
+    <span id="saveCount">0 lugares en mi viaje</span>
+    <button id="printBtn" class="print-btn">&#128424;&#65039; Imprimir itinerario</button>
+  </div>
 
   <!-- RATING & COMMENTS MODAL -->
   <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal">
       <button class="modal-close" id="modalClose" aria-label="Cerrar">&times;</button>
-
       <h2 class="modal-dest-name" id="modalTitle"></h2>
 
-      <!-- Recommendations -->
       <div class="modal-section" id="recoSection">
-        <h3 class="modal-section-title">También Te Puede Gustar</h3>
+        <h3 class="modal-section-title" id="recoSectionTitle">También Te Puede Gustar</h3>
         <div class="reco-list" id="recoList"></div>
       </div>
 
-      <!-- Community Rating -->
       <div class="modal-section">
-        <h3 class="modal-section-title">Calificación Comunitaria</h3>
+        <h3 class="modal-section-title" id="communityRatingTitle">Calificación Comunitaria</h3>
         <div class="community-rating">
           <span class="community-stars" id="communityStars"></span>
-          <span class="community-avg" id="communityAvg"></span>
+          <span class="community-avg"   id="communityAvg"></span>
           <span class="community-count" id="communityCount"></span>
         </div>
         <div class="rating-dist" id="ratingDistribution"></div>
 
-        <h3 class="modal-section-title" style="margin-top:20px">Califica Este Lugar</h3>
+        <h3 class="modal-section-title" id="rateThisTitle" style="margin-top:20px">Califica Este Lugar</h3>
         <div class="star-picker" id="starPicker" role="group" aria-label="Califica este destino">
           <span class="star-pick" data-v="1">&#9733;</span>
           <span class="star-pick" data-v="2">&#9733;</span>
@@ -162,19 +170,17 @@
         <p class="rating-feedback" id="ratingFeedback"></p>
       </div>
 
-      <!-- Comments -->
       <div class="modal-section">
-        <h3 class="modal-section-title">Deja un Comentario</h3>
+        <h3 class="modal-section-title" id="leaveCommentTitle">Deja un Comentario</h3>
         <form class="comment-form" id="commentForm">
-          <input class="comment-input" id="commentName" type="text" placeholder="Tu nombre (opcional)" maxlength="40" />
+          <input class="comment-input"    id="commentName" type="text"  placeholder="Tu nombre (opcional)" maxlength="40" />
           <textarea class="comment-textarea" id="commentBody" placeholder="Comparte tu experiencia en este lugar..." rows="3" maxlength="500" required></textarea>
           <button class="comment-submit" type="submit">Publicar</button>
         </form>
       </div>
 
-      <!-- Comments list -->
       <div class="modal-section">
-        <h3 class="modal-section-title">Lo Que Dicen los Viajeros</h3>
+        <h3 class="modal-section-title" id="whatTravelersSayTitle">Lo Que Dicen los Viajeros</h3>
         <div class="comments-list" id="commentsList">
           <p class="comments-loading">Cargando comentarios...</p>
         </div>
@@ -183,6 +189,7 @@
   </div>
 
   <script src="src/js/data.js"></script>
+  <script src="src/js/strings.js"></script>
   <script src="src/js/analytics.js"></script>
   <script src="src/js/db.js"></script>
   <script src="src/js/recommendations.js"></script>

@@ -12,7 +12,8 @@ const destinations = [
     bestFor: "Solo, couples, curious minds",
     image: "https://images.unsplash.com/photo-1518982380512-5a3c6a8b8d8d?w=800&auto=format&fit=crop&q=80",
     mapLink: "https://maps.google.com/?q=Museo+de+las+Momias+Guanajuato",
-    rating: 4.7
+    rating: 4.7,
+    firstTimer: true
   },
   {
     id: 2, category: "culture",
@@ -60,7 +61,8 @@ const destinations = [
     bestFor: "Couples, romantics, everyone",
     image: "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=800&auto=format&fit=crop&q=80",
     mapLink: "https://maps.google.com/?q=Callejon+del+Beso+Guanajuato",
-    rating: 4.9
+    rating: 4.9,
+    firstTimer: true
   },
 
   // ── Comida y Mercados ───────────────────────────────────────────────────
@@ -74,7 +76,8 @@ const destinations = [
     bestFor: "Families, foodies, everyone",
     image: "https://images.unsplash.com/photo-1585444744772-3dfe56a2d7e7?w=800&auto=format&fit=crop&q=80",
     mapLink: "https://maps.google.com/?q=Mercado+Hidalgo+Guanajuato",
-    rating: 4.6
+    rating: 4.6,
+    firstTimer: true
   },
   {
     id: 7, category: "food",
@@ -160,7 +163,8 @@ const destinations = [
     bestFor: "Everyone, couples, photographers",
     image: "https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&auto=format&fit=crop&q=80",
     mapLink: "https://maps.google.com/?q=Monumento+Pipila+Guanajuato",
-    rating: 4.9
+    rating: 4.9,
+    firstTimer: true
   },
   {
     id: 14, category: "outdoor",
@@ -210,7 +214,8 @@ const destinations = [
     bestFor: "Groups, couples, first-timers",
     image: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&auto=format&fit=crop&q=80",
     mapLink: "https://maps.google.com/?q=Callejoneadas+Guanajuato",
-    rating: 4.9
+    rating: 4.9,
+    firstTimer: true
   },
   {
     id: 18, category: "nightlife",
